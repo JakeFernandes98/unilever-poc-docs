@@ -1,0 +1,564 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Unilever NFT",
+    "description": "Engagement data",
+    "version": "0.1.9"
+  },
+  "servers": [
+    {
+      "url": "https://zora-nft-function.azurewebsites.net/api",
+      "description": "end point"
+    }
+  ],
+  "paths": {
+    "/nft": {
+      "post": {
+        "summary": "Used to obtain details on an NFT apart of a collection.",
+        "description": "Store key information in the cosmos DB on an NFT apart of a collection.",
+        "requestBody": {
+          "description": "Optional description in *Markdown*",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NFT_in"
+              },
+              "example": {
+                "tokenAddress": "0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D/7990"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A string detailing the NFT",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NFT_out"
+                },
+                "example": {
+                  "id": "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d-4251",
+                  "token_collection_id": "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d-4251",
+                  "token_details": {
+                    "token_id": "4251",
+                    "token_owner_address": "0xe51416ef43f4820aaa2b36ddd9cfe1278106190f",
+                    "token_collection_address": "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d",
+                    "token_collection_id": "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d-4251"
+                  },
+                  "minted_details": {
+                    "minted_originator_user_address": "0xd387a6e4e84a6c86bd90c158c6028a58cc8ac459",
+                    "minted_timestamp": "2021-05-01T07:33:49+00:00",
+                    "minted_price_usd": 227.91124276362856,
+                    "minted_address": "0xd387a6e4e84a6c86bd90c158c6028a58cc8ac459"
+                  },
+                  "last_transaction_details": {
+                    "last_transaction_date": "2021-08-12T06:09:13+00:00",
+                    "last_transaction_price": 40030.92102297023,
+                    "last_transaction_currency": "USD"
+                  },
+                  "token_attributes": [
+                    {
+                      "traitType": "Mouth",
+                      "value": "Bored Unshaven",
+                      "displayType": null
+                    },
+                    {
+                      "traitType": "Clothes",
+                      "value": "Biker Vest",
+                      "displayType": null
+                    },
+                    {
+                      "traitType": "Eyes",
+                      "value": "Wide Eyed",
+                      "displayType": null
+                    },
+                    {
+                      "traitType": "Fur",
+                      "value": "Tan",
+                      "displayType": null
+                    },
+                    {
+                      "traitType": "Hat",
+                      "value": "Fez",
+                      "displayType": null
+                    },
+                    {
+                      "traitType": "Background",
+                      "value": "Orange",
+                      "displayType": null
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error response code",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Used to retrieve details on an NFT apart of a collection.",
+        "description": "Retrieve key information from the cosmos DB on an NFT apart of a collection.",
+        "responses": {
+          "200": {
+            "description": "A string detailing the NFT",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NFT_out"
+                },
+                "example": {
+                  "id": "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d-4251",
+                  "token_collection_id": "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d-4251",
+                  "token_details": {
+                    "token_id": "4251",
+                    "token_owner_address": "0xe51416ef43f4820aaa2b36ddd9cfe1278106190f",
+                    "token_collection_address": "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d",
+                    "token_collection_id": "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d-4251"
+                  },
+                  "minted_details": {
+                    "minted_originator_user_address": "0xd387a6e4e84a6c86bd90c158c6028a58cc8ac459",
+                    "minted_timestamp": "2021-05-01T07:33:49+00:00",
+                    "minted_price_usd": 227.91124276362856,
+                    "minted_address": "0xd387a6e4e84a6c86bd90c158c6028a58cc8ac459"
+                  },
+                  "last_transaction_details": {
+                    "last_transaction_date": "2021-08-12T06:09:13+00:00",
+                    "last_transaction_price": 40030.92102297023,
+                    "last_transaction_currency": "USD"
+                  },
+                  "token_attributes": [
+                    {
+                      "traitType": "Mouth",
+                      "value": "Bored Unshaven",
+                      "displayType": null
+                    },
+                    {
+                      "traitType": "Clothes",
+                      "value": "Biker Vest",
+                      "displayType": null
+                    },
+                    {
+                      "traitType": "Eyes",
+                      "value": "Wide Eyed",
+                      "displayType": null
+                    },
+                    {
+                      "traitType": "Fur",
+                      "value": "Tan",
+                      "displayType": null
+                    },
+                    {
+                      "traitType": "Hat",
+                      "value": "Fez",
+                      "displayType": null
+                    },
+                    {
+                      "traitType": "Background",
+                      "value": "Orange",
+                      "displayType": null
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error response code",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/nft-collections": {
+      "post": {
+        "summary": "Used to store details on an NFT apart of a collection.",
+        "description": "Store key information in the cosmos DB on an NFT collection.",
+        "requestBody": {
+          "description": "Optional description in *Markdown*",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NFT_Collection_in"
+              },
+              "example": {
+                "tokenAddress": "0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A string detailing the nft collection",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NFT_Collection_out"
+                },
+                "example": {
+                  "id": "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d",
+                  "collectionAddr": "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d",
+                  "collectionName": "BoredApeYachtClub",
+                  "collectionSymbol": "BAYC",
+                  "ownerCount": 6437,
+                  "salesVolumeUSD": 2114395272.0196345,
+                  "totalSupply": 10000,
+                  "salesVolume": 27551,
+                  "salesVolumeETH": 722442.606955127,
+                  "topHolderAddr": "0xdbfd76af2157dc15ee4e57f3f942bb45ba84af24",
+                  "topHolderCount": 267,
+                  "isUnilever": 0
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error response code",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Used to retrieve details on an NFT apart of a collection.",
+        "description": "Store key information in the cosmos DB on an NFT collection.",
+        "responses": {
+          "200": {
+            "description": "A string detailing the nft collection",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NFT_Collection_out"
+                },
+                "example": {
+                  "id": "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d",
+                  "collectionAddr": "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d",
+                  "collectionName": "BoredApeYachtClub",
+                  "collectionSymbol": "BAYC",
+                  "ownerCount": 6437,
+                  "salesVolumeUSD": 2114395272.0196345,
+                  "totalSupply": 10000,
+                  "salesVolume": 27551,
+                  "salesVolumeETH": 722442.606955127,
+                  "topHolderAddr": "0xdbfd76af2157dc15ee4e57f3f942bb45ba84af24",
+                  "topHolderCount": 267,
+                  "isUnilever": 0
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error response code",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/nft-sales": {
+      "post": {
+        "summary": "Used to store details on  sales data NFT apart of a collection.",
+        "description": "Store key information in the cosmos DB on sales details for  an NFT apart of a collection.",
+        "requestBody": {
+          "description": "Optional description in *Markdown*",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NFT_Sales_in"
+              },
+              "example": {
+                "tokenAddress": "0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A string detailing the nft sales",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NFT_Sales_out"
+                },
+                "example": {
+                  "id": "0xe1afeca32daa27c8c3af483c19cf84c1a50503ac77596cfea0592830222a4144",
+                  "sourceAddr": "0x15b0f65db14aaf770ccd45cb9c3bcc99308d4dab",
+                  "targetAddr": "0x01c9e12c365dd28bd169efea6e5b7939a687c856",
+                  "valueETH": 85.176,
+                  "valueUSD": 139554.5804496107,
+                  "tokenId": "9659",
+                  "collectionName": "BoredApeYachtClub",
+                  "collectionSymbol": "BAYC",
+                  "collectionAddr": "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d",
+                  "tokenAddr": "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d/9659",
+                  "timestamp": "2022-07-28T04:36:34Z"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error response code",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Used to retrieve details on sales data NFT apart of a collection.",
+        "description": "Store key information in the cosmos DB on sales details for  an NFT apart of a collection.",
+        "responses": {
+          "200": {
+            "description": "A string detailing the nft sales",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NFT_Sales_out"
+                },
+                "example": {
+                  "id": "0xe1afeca32daa27c8c3af483c19cf84c1a50503ac77596cfea0592830222a4144",
+                  "sourceAddr": "0x15b0f65db14aaf770ccd45cb9c3bcc99308d4dab",
+                  "targetAddr": "0x01c9e12c365dd28bd169efea6e5b7939a687c856",
+                  "valueETH": 85.176,
+                  "valueUSD": 139554.5804496107,
+                  "tokenId": "9659",
+                  "collectionName": "BoredApeYachtClub",
+                  "collectionSymbol": "BAYC",
+                  "collectionAddr": "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d",
+                  "tokenAddr": "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d/9659",
+                  "timestamp": "2022-07-28T04:36:34Z"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error response code",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "NFT_in": {
+        "type": "object",
+        "properties": {
+          "tokenAddress": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "tokenAddress"
+        ]
+      },
+      "NFT_Collection_in": {
+        "type": "object",
+        "properties": {
+          "collectionAddress": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "collectionAddress"
+        ]
+      },
+      "NFT_Sales_in": {
+        "type": "object",
+        "properties": {
+          "collectionAddress": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "collectionAddress"
+        ]
+      },
+      "NFT_Collection_out": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "collectionAddr": {
+            "type": "integer"
+          },
+          "collectionName": {
+            "type": "integer"
+          },
+          "collectionSymbol": {
+            "type": "string"
+          },
+          "ownerCount": {
+            "type": "number"
+          },
+          "salesVolumeUSD": {
+            "type": "number"
+          },
+          "totalSupply": {
+            "type": "number"
+          },
+          "salesVolume": {
+            "type": "number"
+          },
+          "salesVolumeETH": {
+            "type": "number"
+          },
+          "topHolderAddr": {
+            "type": "string"
+          },
+          "topHolderCount": {
+            "type": "number"
+          },
+          "isUnilever": {
+            "type": "boolean"
+          }
+        }
+      },
+      "NFT_out": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "token_collection_id": {
+            "type": "string"
+          },
+          "token_details": {
+            "type": "string"
+          },
+          "token_id": {
+            "type": "string"
+          },
+          "token_owner_address": {
+            "type": "string"
+          },
+          "token_collection_address": {
+            "type": "string"
+          },
+          "minted_details": {
+            "type": "object",
+            "properties": {
+              "minted_originator_user_address": {
+                "type": "string"
+              },
+              "minted_timestamp": {
+                "type": "string"
+              },
+              "minted_price_usd": {
+                "type": "number"
+              },
+              "minted_address": {
+                "type": "string"
+              }
+            }
+          },
+          "last_transaction_details": {
+            "type": "object",
+            "properties": {
+              "last_transaction_date": {
+                "type": "string"
+              },
+              "last_transaction_price": {
+                "type": "number"
+              },
+              "last_transaction_currency": {
+                "type": "string"
+              }
+            }
+          },
+          "token_attributes": {
+            "type": "object",
+            "properties": {
+              "traitType": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              },
+              "displayType": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "NFT_Sales_out": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "sourceAddr": {
+            "type": "string"
+          },
+          "targetAddr": {
+            "type": "string"
+          },
+          "valueETH": {
+            "type": "number"
+          },
+          "valueUSD": {
+            "type": "number"
+          },
+          "tokenId": {
+            "type": "string"
+          },
+          "collectionName": {
+            "type": "string"
+          },
+          "collectionSymbol": {
+            "type": "string"
+          },
+          "collectionAddr": {
+            "type": "string"
+          },
+          "tokenAddr": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,209 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Unilever DCL",
+    "description": "Engagement data",
+    "version": "0.1.9"
+  },
+  "servers": [
+    {
+      "url": "https://dclapi.azurewebsites.net/api/",
+      "description": "end point"
+    }
+  ],
+  "paths": {
+    "/parcel": {
+      "post": {
+        "summary": "Used to document users entering/exiting a parcel.",
+        "description": "Documents timestamp and user information everytime a user enters or exits a specific parcel.",
+        "requestBody": {
+          "description": "Optional description in *Markdown*",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DCL"
+              },
+              "example": {
+                "timestamp": "2022-07-01T15:33:32.803Z",
+                "parcel_id": 1,
+                "action": "ENTER",
+                "user_guest": false,
+                "user_id": "0x5c934BC413851F81df8F3993e9f78C92Da7ff0b2",
+                "user_name": "Jake#3423"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A string detailing the parcel id and corresponding user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error response code",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/experience": {
+      "post": {
+        "summary": "Used to document users entering/exiting an experience.",
+        "description": "Documents timestamp, parcel and user information everytime a user enters or exits a specific experience.",
+        "requestBody": {
+          "description": "When using this endpoint, action should always be \"ENTER\" or \"EXIT\" and an experience_id should be defined.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DCL"
+              },
+              "example": {
+                "timestamp": "2022-07-04T16:35:32.813Z",
+                "parcel_id": 1,
+                "experience_id": 3,
+                "action": "ENTER",
+                "user_guest": false,
+                "user_id": "0x5c934BC413851F81df8F3993e9f78C92Da7ff0b2",
+                "user_name": "Jake#3423"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A string detailing the parcel id and corresponding user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error response code",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/interaction": {
+      "post": {
+        "summary": "Used to document users interacting with parts of the experience.",
+        "description": "Documents timestamp, parcel, experience, action and user information everytime a user interacts with an experience.",
+        "requestBody": {
+          "description": "When using this endpoint, action should always be \"INTERACT\" and target should be populated. sub_target and target_addr are optional to give more detail into the interaction.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DCL"
+              },
+              "example": {
+                "timestamp": "2022-07-01T15:33:32.803Z",
+                "parcel_id": 1,
+                "experience_id": 3,
+                "action": "INTERACT",
+                "user_guest": false,
+                "user_id": "0x5c934BC413851F81df8F3993e9f78C92Da7ff0b2",
+                "user_name": "Jake#3423",
+                "target": "Retail",
+                "sub_target": "Store Page",
+                "target_addr": "ethereum://0xd35147be6401dcb20811f2104c33de8e97ed6818/15270"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A string detailing the parcel id and corresponding user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error response code",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "DCL": {
+        "type": "object",
+        "properties": {
+          "timestamp": {
+            "type": "string"
+          },
+          "parcel_id": {
+            "type": "integer"
+          },
+          "experience_id": {
+            "type": "integer"
+          },
+          "action": {
+            "type": "string"
+          },
+          "user_guest": {
+            "type": "boolean"
+          },
+          "user_id": {
+            "type": "string"
+          },
+          "user_name": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string"
+          },
+          "sub_target": {
+            "type": "string"
+          },
+          "target_addr": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "timestamp",
+          "parcel_id",
+          "action",
+          "user_guest",
+          "user_id",
+          "user_name"
+        ]
+      }
+    }
+  }
+}

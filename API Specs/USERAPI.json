@@ -1,0 +1,316 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Unilever DCL - User",
+    "description": "Engagement data",
+    "version": "0.1.9"
+  },
+  "servers": [
+    {
+      "url": "https://dclapi.azurewebsites.net/api/",
+      "description": "end point"
+    }
+  ],
+  "paths": {
+    "/users": {
+      "get": {
+        "summary": "Get all users present in the database.",
+        "description": "Retrieves all users available in the database, including information on their currently holding NFTs.",
+        "responses": {
+          "200": {
+            "description": "List of all users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listOfUsers"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error response code"
+          }
+        }
+      }
+    },
+    "/users/{userAddress}": {
+      "get": {
+        "summary": "Get a user by public address.",
+        "description": "Retrieves a user's details using its public address, including information on their currently holding NFTs.",
+        "parameters": [
+          {
+            "name": "userAddress",
+            "in": "path",
+            "description": "User's public address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/singleUser"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      },
+      "post": {
+        "summary": "Used to document users and their current NFT holdings.",
+        "description": "Posts user information including address and details on each NFT they currently hold.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userAddress",
+            "description": "User's public address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "When using this endpoint, user's public addresss should be provided.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/userAddress"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation; returns list of NFTs user is currently holding.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/holdingNFTs"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error response code; missing user address in request parameters"
+          }
+        }
+      }
+    },
+    "/transactions/{userAddress}": {
+      "post": {
+        "summary": "Used to document users' transactions.",
+        "description": "Posts a user's transaction history information including information on the token exchanged.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userAddress",
+            "description": "User's public address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "When using this endpoint, user's public addresss should be provided.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/userAddress"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation; returns list of user's transaction history.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/userTransaction"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error response code; missing user address in request parameters"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "userAddress": {
+        "type": "string",
+        "example": {
+          "userAddress": "0x5c934BC413851F81df8F3993e9f78C92Da7ff0b2"
+        },
+        "required": [
+          "userAddress"
+        ]
+      },
+      "listOfUsers": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/singleUser"
+        },
+        "example": [
+          {
+            "id": "0x5c934BC413851F81df8F3993e9f78C92Da7ff0b2",
+            "holding_NFT_addresses": [
+              {
+                "token_address": "0x2a187453064356c898cae034eaed119e1663acb8/9854286101022844654687254764584934224702671723501532916296595970256783986792",
+                "collection_name": "DCL Registrar",
+                "collection_symbol": "DCLENS",
+                "event_type": "MINTED",
+                "timestamp": "2021-10-24T06:24:19.000Z",
+                "price_usd": 0,
+                "price_eth": 0
+              }
+            ]
+          }
+        ]
+      },
+      "singleUser": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "holding_NFT_addresses": {
+            "$ref": "#/components/schemas/holdingNFTs"
+          }
+        },
+        "example": {
+          "id": "0x5c934BC413851F81df8F3993e9f78C92Da7ff0b2",
+          "holding_NFT_addresses": [
+            {
+              "token_address": "0x2a187453064356c898cae034eaed119e1663acb8/9854286101022844654687254764584934224702671723501532916296595970256783986792",
+              "collection_name": "DCL Registrar",
+              "collection_symbol": "DCLENS",
+              "event_type": "MINTED",
+              "timestamp": "2021-10-24T06:24:19.000Z",
+              "price_usd": 0,
+              "price_eth": 0
+            }
+          ]
+        },
+        "required": [
+          "id",
+          "holding_NFT_addresses"
+        ]
+      },
+      "holdingNFTs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "token_address": {
+              "type": "string",
+              "description": "Comprised of <collectionAddress/tokenId>"
+            },
+            "collection_name": {
+              "type": "string"
+            },
+            "collection_symbol": {
+              "type": "string"
+            },
+            "event_type": {
+              "type": "string"
+            },
+            "timestamp": {
+              "type": "integer"
+            },
+            "price_usd": {
+              "type": "number"
+            },
+            "price_eth": {
+              "type": "number"
+            }
+          }
+        },
+        "example": [
+          {
+            "token_address": "0x2a187453064356c898cae034eaed119e1663acb8/9854286101022844654687254764584934224702671723501532916296595970256783986792",
+            "collection_name": "DCL Registrar",
+            "collection_symbol": "DCLENS",
+            "event_type": "MINTED",
+            "timestamp": "2021-10-24T06:24:19.000Z",
+            "price_usd": 0,
+            "price_eth": 0
+          }
+        ]
+      },
+      "userTransaction": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "transaction hash"
+            },
+            "sourceAddr": {
+              "type": "string"
+            },
+            "targetAddr": {
+              "type": "string"
+            },
+            "valueETH": {
+              "type": "number"
+            },
+            "valueUSD": {
+              "type": "number"
+            },
+            "tokenId": {
+              "type": "string"
+            },
+            "collectionName": {
+              "type": "string"
+            },
+            "collectionSymbol": {
+              "type": "string"
+            },
+            "collectionAddr": {
+              "type": "string"
+            },
+            "tokenAddr": {
+              "type": "string",
+              "description": "Comprised of <collectionAddr/tokenId>"
+            },
+            "timestamp": {
+              "type": "string"
+            }
+          }
+        },
+        "example": [
+          {
+            "id": "0x1ec75f30c98b6f96d885545728f7ec111bc359b35b34a6cd5cedca154c0d3aa3",
+            "sourceAddr": "0x53a2d6f9e322c9aef2f86a2cb8189badbc709db1",
+            "targetAddr": "0x4ec82c0cb09f0043c02584b862bea625d5aa5f9c",
+            "valueETH": 1.6,
+            "valueUSD": 4741.4,
+            "tokenId": 1883,
+            "collectionName": "CyberBrokers",
+            "collectionSymbol": "CYBERBROKERS",
+            "collectionAddr": "0x892848074ddea461a15f337250da3ce55580ca85",
+            "tokenAddr": "0x892848074ddea461a15f337250da3ce55580ca85/7322",
+            "timestamp": "2022-07-22T16:14:24.000Z"
+          }
+        ]
+      }
+    }
+  }
+}
